@@ -21,29 +21,30 @@ SoftwareSerial bluetooth(A1, A0); // RX(TX DO MÓDULO BT), TX(RX DO MÓDULO BT)
 #define REAR_RIGHT_MOTOR 0
 
 #define SPEED_0 0
-#define SPEED_1 150
-#define SPEED_2 162
-#define SPEED_3 173
-#define SPEED_4 186
-#define SPEED_5 198
-#define SPEED_6 211
-#define SPEED_7 224
-#define SPEED_8 236
-#define SPEED_9 249
+#define SPEED_1 125
+#define SPEED_2 140
+#define SPEED_3 153
+#define SPEED_4 168
+#define SPEED_5 181
+#define SPEED_6 196
+#define SPEED_7 209
+#define SPEED_8 224
+#define SPEED_9 237
 #define SPEED_MAX 255
 
 AF_DCMotor motors[] = {(1), (2), (3), (4)};
-byte motorsCurrentSpeed[] = {SPEED_0, SPEED_0, SPEED_0, SPEED_0};
+byte motorsCurrentSpeed[] = {SPEED_3, SPEED_3, SPEED_3, SPEED_3};
 byte motorsCurrentRotation[] = {RELEASE, RELEASE, RELEASE, RELEASE};
 
 HCSR04 sensorDistancia(A2, A3); //PINO TRIGGER, PINO ECHO
 
 char comando = 0;
 float distancia;
-byte currentSpeed = SPEED_0;
+byte currentSpeed = SPEED_4;
 
 void setup()
 {
+  //Serial.begin(9600);
   bluetooth.begin(9600); //INICIA COMUNICAÇÃO SERIAL DO BLUETOOTH
   initializeMotors();
 }
@@ -54,6 +55,9 @@ void loop()
   {
     comando = bluetooth.read();
     distancia = sensorDistancia.dist();
+
+    //Serial.print("Comando: ");
+    //Serial.println(comando);
     
     setSpeed();
 
